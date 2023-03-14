@@ -3,32 +3,63 @@ import tkinter.messagebox as messagebox
 
 def parse_gps_frame():
     text = gps_input.get()
-    field = text.split(",")
+    if text.count(",") == 14:   # Checking the number of commas
+        field = text.split(",")
+    else:
+        result_text_widget.configure(state="normal")
+        result_text_widget.delete("1.0", "end")
+        result_text_widget.insert("1.0", "Incorrect format of GPS Frame!\nIf not, please create an Issue on: https://www.GitHub.com/Useless-Projects/GPS-Frame-Parser", "center")
+        result_text_widget.configure(state="disabled")
 
     if field[0] == "$GPGGA":
         time = field[1]
+        lat = field[2]
+        long = field[4]
         number = field[8]
         number_numerique = float(number)
         number_arrondi = round(number_numerique)
-        if time[8:11] == "":
+        if time[7:10] == "" and long[0:2] == "00":
             result_text_widget.configure(state="normal")
             result_text_widget.delete("1.0", "end")
-            result_text_widget.insert("1.0", "Time: " + time[1:3] + "h" + " " + time[3:5] + "m" + " " + time[5:6] + "s\n"
+            result_text_widget.insert("1.0", "Time: " + time[0:2] + "h" + " " + time[2:4] + "m" + " " + time[4:6] + "s\n"
                             "Latitude: " + (field[2]) + " " + (field[3]) + "\n"
                             "Longitude: " + (field[4]) + " " + (field[5]) + "\n"
                             "Altitude: " + (field[9]) + (field[10]) + "\n"
-                            "Satellites:" + (field[7]) + "\n"
-                            "Reliability: " + get_reliability_string(number_arrondi), "center")
+                            "Satellites: " + (field[7]) + "\n"
+                            "Reliability: " + get_reliability_string(number_arrondi) + "\n"
+                            "GPS coordinates: " + lat[0:2] + "°" + lat[2:4] + "'" + lat[5:7]+ "." + lat[7:8] + '"' + (field[3]) + ", " + long[2:3] + "°" + long[3:5] + "'" + long[6:8]+ "." + long[8:9] + '"' + (field[5]), "center")
+            result_text_widget.configure(state="disabled")
+        elif time[7:10] == "":
+            result_text_widget.configure(state="normal")
+            result_text_widget.delete("1.0", "end")
+            result_text_widget.insert("1.0", "Time: " + time[0:2] + "h" + " " + time[2:4] + "m" + " " + time[4:6] + "s\n"
+                            "Latitude: " + (field[2]) + " " + (field[3]) + "\n"
+                            "Longitude: " + (field[4]) + " " + (field[5]) + "\n"
+                            "Altitude: " + (field[9]) + (field[10]) + "\n"
+                            "Satellites: " + (field[7]) + "\n"
+                            "Reliability: " + get_reliability_string(number_arrondi) + "\n"
+                            "GPS coordinates: " + lat[0:2] + "°" + lat[2:4] + "'" + lat[5:7]+ "." + lat[7:8] + '"' + (field[3]) + ", " + long[0:2] + "°" + long[2:4] + "'" + long[4:5] + long[6:7]+ "." + long[7:8] + '"' + (field[5]), "center")
+        elif long[0:2] == "00":
+            result_text_widget.configure(state="normal")
+            result_text_widget.delete("1.0", "end")
+            result_text_widget.insert("1.0", "Time: " + time[0:2] + "h" + " " + time[2:4] + "m" + " " + time[4:6] + "s" + " " + time[7:10] + "ms\n"
+                         "Latitude: " + (field[2]) + " " + (field[3]) + "\n"
+                         "Longitude: " + (field[4]) + " " + (field[5]) + "\n"
+                         "Altitude: " + (field[9]) + " " + (field[10]) + "\n"
+                         "Satellites: " + (field[7]) + "\n"
+                         "Reliability: " + get_reliability_string(number_arrondi) + "\n"
+                         "GPS coordinates: " + lat[0:2] + "°" + lat[2:4] + "'" + lat[5:7]+ "." + lat[7:8] + '"' + (field[3]) + ", " + long[2:3] + "°" + long[3:5] + "'" + long[6:8]+ "." + long[8:9] + '"' + (field[5]), "center")
             result_text_widget.configure(state="disabled")
         else:
             result_text_widget.configure(state="normal")
             result_text_widget.delete("1.0", "end")
-            result_text_widget.insert("1.0", "Time: " + time[1:3] + "h" + " " + time[3:5] + "m" + " " + time[5:6] + "s" + " " + time[8:11] + "ms\n"
+            result_text_widget.insert("1.0", "Time: " + time[0:2] + "h" + " " + time[2:4] + "m" + " " + time[4:6] + "s" + " " + time[7:10] + "ms\n"
                          "Latitude: " + (field[2]) + " " + (field[3]) + "\n"
                          "Longitude: " + (field[4]) + " " + (field[5]) + "\n"
                          "Altitude: " + (field[9]) + (field[10]) + "\n"
-                         "Satellites:" + (field[7]) + "\n"
-                         "Reliability: " + get_reliability_string(number_arrondi), "center")
+                         "Satellites: " + (field[7]) + "\n"
+                         "Reliability: " + get_reliability_string(number_arrondi) + "\n"
+                         "GPS coordinates: " + lat[0:2] + "°" + lat[2:4] + "'" + lat[5:7]+ "." + lat[7:8] + '"' + (field[3]) + ", " + long[0:2] + "°" + long[2:4] + "'" + long[4:5] + long[6:7]+ "." + long[7:8] + '"' + (field[5]), "center")
             result_text_widget.configure(state="disabled")
     else:
         result_text.set("This is not a GPS Frame!")
@@ -55,7 +86,7 @@ window.title("GPS Frame Parser")
 menu_bar = tk.Menu(window)
 
 # Add the "About" command to the menu bar
-menu_bar.add_command(label="About", command=lambda: messagebox.showinfo("About", "GPS Frame Parser v1.1.0\nCoded by Thibault Savenkoff\nLicensed under the GNU General Public License v3.0.\n© 2023 Thibault Savenkoff. All rights reserved."))
+menu_bar.add_command(label="About", command=lambda: messagebox.showinfo("About", "GPS Frame Parser v1.2.0\nCoded by Thibault Savenkoff\nLicensed under the GNU General Public License v3.0.\n© 2023 Thibault Savenkoff. All rights reserved."))
 
 # Set the menu bar for the window
 window.config(menu=menu_bar)
