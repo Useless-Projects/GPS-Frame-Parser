@@ -1,5 +1,5 @@
-# GPS Frame Parser
-[![The Latest Version](https://img.shields.io/github/v/release/Useless-Projects/GPS-Frame-Parser?display_name=tag&label=Version%3A&logo=python&logoColor=%23fece3e&style=plastic)](https://github.com/Useless-Projects/GPS-Frame-Parser/releases/latest)
-[![GNU General Public License](https://img.shields.io/github/license/Useless-Projects/GPS-Frame-Parser?label=License%3A&logo=GNU&style=plastic)](https://github.com/Useless-Projects/GPS-Frame-Parser/blob/609b5935fc5d002a95c57f1b2fdee8be987413f7/LICENSE)
-[![Numbers of Downloads](https://img.shields.io/github/downloads/Useless-Projects/GPS-Frame-PArser/total?label=Downloads%3A&style=plastic)](https://github.com/Useless-Projects/GPS-Frame-Parser/releases/latest)
-##  A gui program in python to decode a NMEA frame.
+# GPS Frame Parser - v1.2.0 (March 14, 2023)
+[![v1.2.0](https://img.shields.io/badge/Version-v1.2.0-blue?display_name=tag&label=Version&logo=python&logoColor=%23fece3e&style=plastic)](https://github.com/Useless-Projects/GPS-Frame-Parser/releases/v1.2.0)
+[![GNU General Public License](https://img.shields.io/badge/GPL--3.0-orange?style=plastic&logo=gnu&label=Licence)](https://github.com/Useless-Projects/GPS-Frame-Parser/blob/v1.2.0/LICENSE)
+[![Numbers of Downloads](https://img.shields.io/badge/25-yellowgreen?style=plastic&label=Downloads)]([https://github.com/Useless-Projects/GPS-Frame-Parser/releases/latest](https://github.com/Useless-Projects/GPS-Frame-Parser/releases/v1.2.0))
+###  A gui program in python to decode a NMEA frame.
